@@ -1,0 +1,41 @@
+name: android-sdk-setup
+version: 1.0.0
+icon: "android.svg"
+
+inputs:
+  - name: ANDROID_COMPILE_SDK
+    type: string
+    required: true
+  - name: ANDROID_BUILD_TOOLS
+    type: string
+    required: true
+  - name: ANDROID_COMMANDLINE_TOOLS
+    type: string
+    value: "6514223"
+    required: false
+  
+script: |
+  # setup packages
+  apt --quiet update --yes
+  apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+
+  # setup android home
+  export ANDROID_HOME=${FLOWCI_AGENT_WORKSPACE}/android-sdk-linux
+  export CMDLINE_TOOLS_DIR=${ANDROID_HOME}/cmdline-tools
+
+  mkdir -p ${ANDROID_HOME}
+  cd ${ANDROID_HOME}
+
+  # install command line tools
+  if [[ ! -e $CMDLINE_TOOLS_DIR ]]; then
+    mkdir ${CMDLINE_TOOLS_DIR}
+    wget --quiet -O ${CMDLINE_TOOLS_DIR}/commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_COMMANDLINE_TOOLS}_latest.zip
+    unzip -d ${CMDLINE_TOOLS_DIR} ${CMDLINE_TOOLS_DIR}/commandlinetools.zip
+    rm ${CMDLINE_TOOLS_DIR}/commandlinetools.zip
+    yes | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager --licenses
+  fi
+
+  # install sdk
+  echo y | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}"
+  echo y | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager "platform-tools"
+  echo y | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
