@@ -13,6 +13,9 @@ inputs:
     type: string
     value: "6514223"
     required: false
+
+exports:
+  - "ANDROID_HOME"
   
 script: |
   # setup packages
@@ -32,7 +35,7 @@ script: |
     wget --quiet -O ${CMDLINE_TOOLS_DIR}/commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_COMMANDLINE_TOOLS}_latest.zip
     unzip -d ${CMDLINE_TOOLS_DIR} ${CMDLINE_TOOLS_DIR}/commandlinetools.zip
     rm ${CMDLINE_TOOLS_DIR}/commandlinetools.zip
-    yes | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager --licenses
+    echo yes | ${CMDLINE_TOOLS_DIR}/tools/bin/sdkmanager --licenses
   fi
 
   # install sdk
