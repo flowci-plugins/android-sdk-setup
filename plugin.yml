@@ -17,6 +17,8 @@ inputs:
 exports:
   - "ANDROID_HOME"
   - "ANDROID_SDK_HOME"
+  - "ANDROID_COMPILE_SDK"
+  - "ANDROID_BUILD_TOOLS"
   
 script: |
   # setup packages
