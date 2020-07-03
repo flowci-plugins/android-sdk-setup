@@ -12,10 +12,13 @@ Install android sdk with specific version
 
 ## Exports
 
-It will export the flowing envrionment variables to job context
+It will export the flowing envrionment variables to job context:
+[refs](https://developer.android.com/studio/command-line/variables)
 
 - `ANDROID_HOME`
 - `ANDROID_SDK_HOME`
+- `ANDROID_COMPILE_SDK`
+- `ANDROID_BUILD_TOOLS`
 
 ## How to use it
 
