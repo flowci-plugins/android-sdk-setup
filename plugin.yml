@@ -15,7 +15,6 @@ inputs:
     required: false
 
 exports:
-  - "ANDROID_HOME"
   - "ANDROID_SDK_HOME"
   - "ANDROID_COMPILE_SDK"
   - "ANDROID_BUILD_TOOLS"
@@ -26,12 +25,11 @@ script: |
   apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
 
   # setup android home
-  export ANDROID_HOME=${FLOWCI_AGENT_WORKSPACE}/android-sdk-linux
-  export ANDROID_SDK_HOME=${FLOWCI_AGENT_WORKSPACE}/.android
-  export CMDLINE_TOOLS_DIR=${ANDROID_HOME}/cmdline-tools
+  export ANDROID_SDK_HOME=${FLOWCI_AGENT_WORKSPACE}/android-sdk-linux
+  export CMDLINE_TOOLS_DIR=${ANDROID_SDK_HOME}/cmdline-tools
 
-  mkdir -p ${ANDROID_HOME}
-  cd ${ANDROID_HOME}
+  mkdir -p ${ANDROID_SDK_HOME}
+  cd ${ANDROID_SDK_HOME}
 
   # install command line tools
   if [[ ! -e $CMDLINE_TOOLS_DIR ]]; then
