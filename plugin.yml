@@ -15,6 +15,7 @@ inputs:
     required: false
 
 exports:
+  - "ANDROID_HOME"
   - "ANDROID_SDK_HOME"
   - "ANDROID_COMPILE_SDK"
   - "ANDROID_BUILD_TOOLS"
@@ -26,6 +27,7 @@ script: |
 
   # setup android home
   export ANDROID_SDK_HOME=${FLOWCI_AGENT_WORKSPACE}/android-sdk-linux
+  export ANDROID_HOME=${ANDROID_SDK_HOME}
   export CMDLINE_TOOLS_DIR=${ANDROID_SDK_HOME}/cmdline-tools
 
   mkdir -p ${ANDROID_SDK_HOME}
